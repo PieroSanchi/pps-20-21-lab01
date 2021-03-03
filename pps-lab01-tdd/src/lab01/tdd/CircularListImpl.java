@@ -45,7 +45,7 @@ public class CircularListImpl implements CircularList {
 
     @Override
     public void reset() {
-
+        circularList.set(position, circularList.get(0));
     }
 
     @Override
