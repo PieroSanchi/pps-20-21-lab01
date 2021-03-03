@@ -1,5 +1,4 @@
-import lab01.tdd.CircularList;
-import lab01.tdd.CircularListImpl;
+import lab01.tdd.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -66,10 +65,28 @@ public class CircularListTest {
         assertEquals(Optional.of(3), circularList.next());
     }
 
+    @Test
+    void testNextWithEvenStrategy(){
+        SelectStrategy evenStrategy = new EvenStrategy();
+        this.addThreeElements();
+        assertEquals(Optional.of(2),circularList.next(evenStrategy));
+    }
+
+    @Test
+    void testNextWithMultipleOfStrategy(){
+        SelectStrategy MultipleOfStrategy = new MultipleOfStrategy();
+    }
+
+    @Test
+    void testNextWithEqualsStrategy(){
+        SelectStrategy equalStrategy = new EqualsStrategy();
+    }
+
     void addThreeElements(){
         circularList.add(1);
         circularList.add(2);
         circularList.add(3);
     }
+
 
 }

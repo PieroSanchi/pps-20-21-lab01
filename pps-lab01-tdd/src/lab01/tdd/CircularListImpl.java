@@ -8,6 +8,7 @@ public class CircularListImpl implements CircularList {
 
     private List<Integer> circularList = new ArrayList<>();
     private int position = 0;
+    private SelectStrategy strategy;
 
     @Override
     public void add(int element) {
@@ -36,7 +37,7 @@ public class CircularListImpl implements CircularList {
     @Override
     public Optional<Integer> previous() {
         if (position == 0) {
-            position = circularList.size()-1;
+            position = circularList.size() - 1;
             return Optional.ofNullable(circularList.get(position));
         } else {
             return Optional.ofNullable(circularList.get(--position));
@@ -50,6 +51,18 @@ public class CircularListImpl implements CircularList {
 
     @Override
     public Optional<Integer> next(SelectStrategy strategy) {
+        final int startPosition = position;
+        do{
+            int next = circularList.get(position);
+            this.position++;
+            if(this.position == circularList.size()){
+                position=0;
+            }
+            if(strategy.apply(next)){
+                return Optional.of(next);
+            }
+        }while(position != startPosition);
         return Optional.empty();
     }
+
 }
